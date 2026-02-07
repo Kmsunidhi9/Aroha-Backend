@@ -4,11 +4,13 @@ dotenv.config();
 const cors = require('cors');
 const port = 5000;
 const mongoose = require('./db');
+const authRoutes = require('./routes/authenticate');
 
 const app = express();
 mongoose();
 
 app.use(cors());
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) =>{
     res.send('hey buddy')

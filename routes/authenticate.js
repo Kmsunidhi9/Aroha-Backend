@@ -11,9 +11,18 @@ router.post('/register', async (req, res) => {
         // check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
+            return res.status(400).json({ 
+                status: "failure",
+                statusCode: 400,
+                data:{ message:'User already exists'}
+             });
         }
-        const newUser = new User({ username, email, password});
+
+        const randomString = await bcrypt.genSalt(6); // generate a random string to be used as salt for hashing the password
+        const encodedPassword = await bcrypt.hash(password, randomString); // hash the password with a salt round of 6
+        
+
+        const newUser = new User({ username, email, password:encodedPassword});
         await newUser.save();
         res.status(200).json(
             {

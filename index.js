@@ -9,15 +9,18 @@ const authRoutes = require('./routes/authenticate');
 const app = express();
 mongoose();
 
+
 app.use(cors());
+// request body type is JSON
+app.use(express.json());
+
 app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) =>{
     res.send('hey buddy')
 })
 
-// request body type is JSON
-app.use(express.json())
+
 
 // middleware
 app.use((err, req, res, next) =>{

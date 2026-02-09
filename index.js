@@ -1,39 +1,15 @@
-const express = require('express');
 const dotenv = require('dotenv');
 dotenv.config();
-const cors = require('cors');
-const port = 5000;
-const mongoose = require('./db');
-const authRoutes = require('./routes/authenticate');
 
-const app = express();
+const app = require('./app');
+const mongoose = require('./db');
+
+const port = 5000;
+
+// connect DB
 mongoose();
 
-
-app.use(cors());
-// request body type is JSON
-app.use(express.json());
-
-app.use('/api/auth', authRoutes);
-
-app.get('/', (req, res) =>{
-    res.send('hey buddy')
-})
-
-
-
-// middleware
-app.use((err, req, res, next) =>{
-    res.status(500).json({
-        'status': 500,
-        'error message': 'internal server error'
-    })
-})
-
-//to start the server
-app.listen(
-port, () => {
-    console.log('server started at port 5000'); 
-}
-)
-
+// start server
+app.listen(port, () => {
+  console.log(`server started at port ${port}`);
+});

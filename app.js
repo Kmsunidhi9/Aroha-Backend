@@ -1,3 +1,8 @@
+/**
+ * This file sets up the Express application, including middleware and routes.
+ * It also includes error handling middleware to catch any unhandled errors.
+ */
+
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/authenticate');

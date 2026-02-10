@@ -1,3 +1,7 @@
+/** * This is the entry point of the application. It loads environment variables,
+ * connects to the database, and starts the Express server.
+ */
+
 const dotenv = require('dotenv');
 dotenv.config();
 

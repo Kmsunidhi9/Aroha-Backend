@@ -1,15 +1,26 @@
-const request = require('supertest');
-const app = require('../app');
-const User = require('../models/User');
+/**
+ * This file contains integration tests for the user registration endpoint.
+ * It uses Jest and Supertest to test the /api/auth/register route.
+ * The tests cover scenarios such as user already existing, successful registration, and server errors.
+ * The User model and bcrypt functions are mocked to isolate the tests from the database and hashing logic.
+ * To run these tests, use the command: npm test
+ * 
+ 
+*/
+
+const request = require('supertest'); // import supertest to make HTTP requests to the app
+const app = require('../app'); // used to import routing and middleware from app.js
+const User = require('../models/User'); // to import mongoose user schema 
 const bcrypt = require('bcryptjs');
 
-jest.mock('../models/User');
+jest.mock('../models/User'); // creating a mock of the User 
 
 jest.mock('bcryptjs', () => ({
   genSalt: jest.fn(),
   hash: jest.fn()
 }));
 
+// group related tests for authenticate routes
 describe('Authenticate Routes', () => {
 
   afterEach(() => {
